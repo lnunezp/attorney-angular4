@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-8">
+    <ba-card cardTitle="Datos de Abogados" baCardClass="with-scroll" baCardClass="with-scroll" *ngFor="let item of dataAttorney">
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+
+          <div class="form-group" [ngClass]="{'has-error': (!rut.valid && rut.touched), 'has-success': (rut.valid && rut.touched)}">
+            <label for="nombre">RUT</label>
+            <div class="input-group">
+              <input [formControl]="rut" type="number" class="form-control" id="inputRut" placeholder="Rut" [(ngModel)]="item.rUT" [value]="item.rUT">
+              <span class="input-group-addon">-</span>
+              <input [formControl]="dv" type="text" class="form-control" id="inputDv" placeholder="DV" [(ngModel)]="item.dV" [value]="item.dV">
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (!nombre.valid && nombre.touched), 'has-success': (nombre.valid && nombre.touched)}">
+          <label for="nombre">Nombre</label>
+          <input [formControl]="nombre" type="text" class="form-control" id="inputNombre" placeholder="Nombre" [(ngModel)]="item.nAME" [value]="item.nAME">
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (!apellido.valid && apellido.touched), 'has-success': (apellido.valid && apellido.touched)}">
+          <label for="apellido">Apellidos</label>
+          <input [formControl]="apellido" type="text" class="form-control" id="inputpApellido" placeholder="Apellidos" [(ngModel)]="item.lASTNAME" [value]="item.lASTNAME">
+        </div>
+        <div >
+          <button [disabled]="!form.valid" type="submit" class="btn btn-primary">Guardar</button>
+          <a [routerLink]="['/pages/administration/listAttorney']" class="btn btn-secondary">Cancelar</a>
+          <!-- <a routerLink="/login" class="forgot-pass" translate>{{'login.forgot_password'}}</a> -->
+        </div>
+      </form>
+    </ba-card>
+  </div>
+</div>
+<alert></alert>

@@ -1,0 +1,64 @@
+<div class="widgets">
+  <div class="row">
+    <ba-card title="Lista de Pagos" baCardClass="with-scroll" class="data-table-container">
+      <div class="panel panel-default">
+        <div *ngFor="let itemCase of dataCase" class="panel-heading">Pagos de la Causa: {{ itemCase.dESCRIPTIONS }}</div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+            <div class="row">
+              <div class="col-sm-2">
+                <div class="form-group">
+                  <label for="inputComprobante">Comprobante</label>
+                  <input [formControl]="comprobante" type="text" class="form-control" id="inputComprobante" placeholder="Comprobante">
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="form-group">
+                  <label for="inputMonto">Monto a Pagar</label>
+                  <input [formControl]="monto" type="number" class="form-control" id="inputMonto" placeholder="Monto">
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="form-group">
+                  <label for="inputLastName">Guardar Pago</label>
+                  <button type="submit" class="btn btn-success form-control">Guardar</button>
+                </div>
+              </div>
+            </div>
+        </form>
+        <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+          <thead>
+            <tr>
+              <th style="width: 5%" class="text-center">Eliminar</th>
+              <th style="width: 15%">
+                <mfDefaultSorter by="nombres">Fecha Pago</mfDefaultSorter>
+              </th>
+              <th style="width: 15%">
+                <mfDefaultSorter by="nombres">Voucher</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="nombreUsuario">Monto</mfDefaultSorter>
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of mf.data">
+                <td class="text-center">
+                  <button (click)="deleteById(item.tOKEN)" class="btn btn-danger ion-close-round"></button>
+                </td>
+                <td>{{ item.dATE | date }}</td>
+                <td>{{ item.vOUCHER }}</td>
+                <td>{{ item.vALUE | number }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </ba-card>
+    </div>
+  </div>
+  <alert></alert>

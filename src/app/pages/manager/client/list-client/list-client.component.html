@@ -1,0 +1,85 @@
+<div class="widgets">
+  <div class="row">
+    <ba-card title="Lista de Clientes" baCardClass="with-scroll" class="data-table-container">
+      <div class="panel panel-default">
+        <div class="panel-heading">Clientes</div>
+        <table class="table table-striped" [mfData]="data | dataFilterClient : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+          <thead>
+            <tr>
+              <th colspan="4" class="text-left">
+                Filtrar por RUT:
+                <div class="input-group">
+                  <input type="number" class="form-control" [(ngModel)]="filterQuery" />
+                  <span class="input-group-btn">
+                    <a [routerLink]="['/pages/manager/createClient']" class="btn btn-secondary">Crear Nuevo Cliente</a>
+                  </span>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <th style="width: 5%" class="text-center">Eliminar</th>
+              <th style="width: 5%" class="text-center">Modificar</th>
+              <th style="width: 5%" class="text-center">Nueva Causa</th>
+              <th style="width: 15%">
+                <mfDefaultSorter by="nombres">Nombres</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="nombreUsuario">Rut</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="nombreUsuario">Mail</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="mail">Celular</mfDefaultSorter>
+              </th>
+              <th style="width: 5%">
+                <mfDefaultSorter by="activo">Teléfono</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="activo">Cantidad Causas</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="activo">Total Histórico</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="activo">Deuda</mfDefaultSorter>
+              </th>
+              <th style="width: 5%" class="text-center">Pagar</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of mf.data">
+                <td class="text-center">
+                  <button (click)="deleteById(item.tOKEN)" class="btn btn-danger ion-close-round"></button>
+                </td>
+                <td class="text-center">
+                  <a [routerLink]="['/pages/manager/updateClient/', item.tOKEN]" class="btn btn-warning ion-edit"></a>
+                </td>
+                <td class="text-center">
+                  <a [routerLink]="['/pages/manager/createCase/', item.tOKEN]" class="btn btn-info fa fa fa-bank"></a>
+                </td>
+                <td>{{ item.nAME + ' ' + item.lASTNAME }}</td>
+                <td>{{ item.rUT + '-' + item.dV }}
+                <td>{{ item.eMAIL }}</td>
+                <td>{{ item.mOBILE }}</td>
+                <td>{{ item.pHONE }}</td>
+                <td class="text-right">{{ item.cANTIDAD | number }}</td>
+                <td class="text-right">{{ item.tOTAL | number }}</td>
+                <td class="text-right">{{ item.dEUDA | number }}</td>
+                <td class="text-center">
+                  <a [routerLink]="['/pages/manager/createPayment/', item.tOKEN]" class="btn btn-success ion-android-checkmark-circle"></a>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="12">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </ba-card>
+    </div>
+  </div>
+  <alert></alert>

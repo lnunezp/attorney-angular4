@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-4">
+    <ba-card cardTitle="Crear Causa" baCardClass="with-scroll">
+      <label *ngFor="let item of data">Cliente: {{ item.nAME + ' ' + item.lASTNAME }} Rut: {{ item.rUT + '-' + item.dV }}</label>
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+        <div class="form-group" [ngClass]="{'has-error': (!descripcion.valid && descripcion.touched), 'has-success': (descripcion.valid && descripcion.touched)}">
+          <label for="descripcion">Descripción</label>
+          <input [formControl]="descripcion" type="text" class="form-control" id="inputpDescripcion" placeholder="Descripcion">
+        </div>
+        <div class="form-group">
+          <label for="exampleSelect1">Seleccione Abogado Asignado</label>
+          <select class="form-control" id="attorToken" [formControl]="attorToken">
+            <option *ngFor="let item of dataAttorney" [value]="item.tOKEN">{{ item.nAME + ' ' + item.lASTNAME }}</option>
+          </select>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (!monto.valid && monto.touched), 'has-success': (monto.valid && monto.touched)}">
+          <label for="monto">Monto</label>
+          <input [formControl]="monto" type="number" class="form-control" id="inputMonto" placeholder="Monto">
+        </div>
+        <div >
+          <button [disabled]="!form.valid" type="submit" class="btn btn-primary">Guardar</button>
+          <a [routerLink]="['/pages/manager/listClient']" class="btn btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </ba-card>
+  </div>
+</div>
+<alert></alert>

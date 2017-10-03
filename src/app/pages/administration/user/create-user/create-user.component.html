@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-8">
+    <ba-card cardTitle="Datos de Usuario" baCardClass="with-scroll">
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+        <div class="form-group" [ngClass]="{'has-error': (!nombre.valid && nombre.touched), 'has-success': (nombre.valid && nombre.touched)}">
+          <label for="nombre">Nombre</label>
+          <input [formControl]="nombre" type="text" class="form-control" id="inputNombre" placeholder="Nombre">
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (!apellido.valid && apellido.touched), 'has-success': (apellido.valid && apellido.touched)}">
+          <label for="apellido">Apellidos</label>
+          <input [formControl]="apellido" type="text" class="form-control" id="inputpApellido" placeholder="Apellidos">
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (!nombreUsuario.valid && nombreUsuario.touched), 'has-success': (nombreUsuario.valid && nombreUsuario.touched)}">
+          <label for="nombreUsuario">Nombre de Usuario</label>
+          <input [formControl]="nombreUsuario" type="text" class="form-control" id="inputnombreUsuario" placeholder="Nombre de usuario">
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (!password.valid && password.touched), 'has-success': (password.valid && password.touched)}">
+          <label for="password">Password</label>
+          <input [formControl]="password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (!repeatPassword.valid && repeatPassword.touched), 'has-success': (repeatPassword.valid && repeatPassword.touched)}">
+          <label for="repeatPassword">Repetir Password</label>
+          <input [formControl]="repeatPassword" type="password" class="form-control" id="inputRepeatPassword" placeholder="Password">
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (!mail.valid && mail.touched), 'has-success': (mail.valid && mail.touched)}">
+          <label for="mail">Mail</label>
+          <input [formControl]="mail" type="mail" class="form-control" id="inputMail" placeholder="Mail">
+        </div>
+        <div >
+          <button [disabled]="!form.valid" type="submit" class="btn btn-primary">Guardar</button>
+          <!-- <a routerLink="/login" class="forgot-pass" translate>{{'login.forgot_password'}}</a> -->
+        </div>
+      </form>
+    </ba-card>
+  </div>
+</div>
+<alert></alert>

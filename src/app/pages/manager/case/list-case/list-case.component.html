@@ -1,0 +1,71 @@
+<div class="widgets">
+  <div class="row">
+    <ba-card title="Lista de Casos" baCardClass="with-scroll" class="data-table-container">
+      <div class="panel panel-default">
+        <div *ngFor="let item of dataClient" class="panel-heading">Causas: {{ item.nAME + ' ' + item.lASTNAME }} Rut: {{ item.rUT + '-' + item.dV }}</div>
+        <table class="table table-striped" [mfData]="data | dataFilterCase : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+          <thead>
+            <tr>
+              <th colspan="1" class="text-left">
+                Filtrar por Descripción:
+                <div class="input-group">
+                  <input type="text" class="form-control" [(ngModel)]="filterQuery" />
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <th style="width: 5%" class="text-center">Eliminar</th>
+              <th style="width: 5%" class="text-center">Antecedentes</th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="nombres">Descripción de la Causa</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="nombres">Abogado Asignado</mfDefaultSorter>
+              </th>
+              <th style="width: 5%">
+                <mfDefaultSorter by="nombreUsuario">Monto Total</mfDefaultSorter>
+              </th>
+              <th style="width: 5%">
+                <mfDefaultSorter by="nombreUsuario">Saldo Pendiente</mfDefaultSorter>
+              </th>
+              <th style="width: 5%">
+                <mfDefaultSorter by="mail">Fecha Causa</mfDefaultSorter>
+              </th>
+              <th style="width: 5%" class="text-center">Seleccionar</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of mf.data">
+                <td class="text-center">
+                  <div *ngIf="item.vALUE == item.bALANCE; else elseBlock">
+                    <button (click)="deleteById(item.tOKEN)" class="btn btn-danger ion-close-round"></button>
+                  </div>
+                  <ng-template #elseBlock>
+                    <button class="btn btn-danger ion-close-round disabled"></button>
+                  </ng-template>
+                </td>
+                <td class="text-center">
+                  <a [routerLink]="['/pages/manager/caseHistori/', item.tOKEN]" class="btn btn-warning ion-edit"></a>
+                </td>
+                <td>{{ item.dESCRIPTIONS }}</td>
+                <td>{{ item.nAME + ' ' + item.lASTNAME }}</td>
+                <td>{{ item.vALUE | number }}
+                <td>{{ item.bALANCE | number }}</td>
+                <td>{{ item.dATE | date }}</td>
+                <td class="text-center">
+                  <a (click)="loadPayment(item.tOKEN)" class="btn btn-success ion-android-checkmark-circle"></a>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="8">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </ba-card>
+    </div>
+  </div>
+  <nga-list-payment [paymentTokenParam]="paymentToken" [clientToken]="tokenClient"></nga-list-payment>

@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-8">
+    <ba-card cardTitle="Datos de Clientes" baCardClass="with-scroll">
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+
+          <div class="form-group" [ngClass]="{'has-error': (!rut.valid && rut.touched), 'has-success': (rut.valid && rut.touched)}">
+            <label for="nombre">RUT</label>
+            <div class="input-group">
+              <input [formControl]="rut" type="number" class="form-control" id="inputRut" placeholder="Rut">
+              <span class="input-group-addon">-</span>
+              <input [formControl]="dv" type="text" class="form-control" id="inputDv" placeholder="DV">
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (!nombre.valid && nombre.touched), 'has-success': (nombre.valid && nombre.touched)}">
+          <label for="nombre">Nombre</label>
+          <input [formControl]="nombre" type="text" class="form-control" id="inputNombre" placeholder="Nombre">
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (!apellido.valid && apellido.touched), 'has-success': (apellido.valid && apellido.touched)}">
+          <label for="apellido">Apellidos</label>
+          <input [formControl]="apellido" type="text" class="form-control" id="inputpApellido" placeholder="Apellidos">
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
+          <label for="email">Mail</label>
+          <input [formControl]="email" type="mail" class="form-control" id="inputEmail" placeholder="Mail">
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (!mobile.valid && mobile.touched), 'has-success': (mobile.valid && mobile.touched)}">
+          <label for="mobile">Celular</label>
+          <input [formControl]="mobile" type="number" class="form-control" id="inputMobile" placeholder="Celular">
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': (!phone.valid && phone.touched), 'has-success': (phone.valid && phone.touched)}">
+          <label for="phone">Teléfono</label>
+          <input [formControl]="phone" type="number" class="form-control" id="inputPhone" placeholder="Teléfono">
+        </div>
+        <div >
+          <button [disabled]="!form.valid" type="submit" class="btn btn-primary">Guardar</button>
+          <a [routerLink]="['/pages/manager/listClient']" class="btn btn-secondary">Cancelar</a>
+          <!-- <a routerLink="/login" class="forgot-pass" translate>{{'login.forgot_password'}}</a> -->
+        </div>
+      </form>
+    </ba-card>
+  </div>
+</div>
+<alert></alert>

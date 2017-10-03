@@ -1,0 +1,54 @@
+<div class="widgets">
+  <div class="row">
+    <ba-card title="Lista de Abogados" baCardClass="with-scroll" class="data-table-container">
+      <div class="panel panel-default">
+        <div class="panel-heading">Abogados</div>
+        <table class="table table-striped" [mfData]="data | dataFilterAttorney : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+          <thead>
+            <tr>
+              <th colspan="2" class="text-left">
+                Filtrar por RUT:
+                <div class="input-group">
+                  <input type="number" class="form-control" [(ngModel)]="filterQuery" />
+                  <span class="input-group-btn">
+                    <a [routerLink]="['/pages/administration/createAttorney']" class="btn btn-secondary">Crear Nuevo Abogado</a>
+                  </span>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <th style="width: 5%" class="text-center">Eliminar</th>
+              <th style="width: 5%" class="text-center">Modificar</th>
+
+              <th style="width: 15%">
+                <mfDefaultSorter by="nombres">Nombres</mfDefaultSorter>
+              </th>
+              <th style="width: 10%">
+                <mfDefaultSorter by="rut">Rut</mfDefaultSorter>
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of mf.data">
+                <td class="text-center">
+                  <button (click)="deleteById(item.tOKEN)" class="btn btn-danger ion-close-round"></button>
+                </td>
+                <td class="text-center">
+                  <a [routerLink]="['/pages/administration/updateAttorney/', item.tOKEN]" class="btn btn-warning ion-edit"></a>
+                </td>
+                <td>{{ item.nAME + ' ' + item.lASTNAME }}</td>
+                <td>{{ item.rUT + '-' + item.dV }}
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4">
+                  <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </ba-card>
+    </div>
+  </div>
+  <alert></alert>
